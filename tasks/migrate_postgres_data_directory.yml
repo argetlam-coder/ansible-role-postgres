@@ -48,8 +48,8 @@
     path: "{{ postgres_data_path }}"
     state: directory
     mode: 0700
-    owner: "{{ postgres_uid }}"
-    group: "{{ postgres_gid }}"
+    owner: "{{ postgres_host_filesystem_uid }}"
+    group: "{{ postgres_host_filesystem_gid }}"
   when: "result_pg_old_data_dir_stat.stat.exists"
 
 - when: "result_pg_old_data_dir_stat.stat.exists"

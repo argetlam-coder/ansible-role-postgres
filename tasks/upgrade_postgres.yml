@@ -1,8 +1,17 @@
 ---
 
+- name: Ensure postgres_dump_dir gets created, if not provided
+  ansible.builtin.file:
+    path: "/tmp/postgres"
+    state: directory
+    mode: 0700
+    owner: "{{ postgres_host_filesystem_uid }}"
+    group: "{{ postgres_host_filesystem_gid }}"
+  when: "postgres_dump_dir | default('') == ''"
+
 - name: Set default postgres_dump_dir, if not provided
   ansible.builtin.set_fact:
-    postgres_dump_dir: "/tmp"
+    postgres_dump_dir: "/tmp/postgres"
   when: "postgres_dump_dir | default('') == ''"
 
 - name: Set postgres_dump_name, if not provided

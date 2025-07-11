@@ -40,7 +40,7 @@
   delay: "{{ devture_playbook_help_container_retries_delay }}"
   until: result is not failed
 
-- name: Ensure Postgres paths exist
+- name: Ensure Postgres base and bin path exists
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -49,8 +49,15 @@
     group: "{{ postgres_gid }}"
   with_items:
     - "{{ postgres_base_path }}"
-    - "{{ postgres_data_path }}"
     - "{{ postgres_bin_path }}"
+
+- name: Ensure Postgres data path exists
+  ansible.builtin.file:
+    path: "{{ postgres_data_path }}"
+    state: directory
+    mode: 0700
+    owner: "{{ postgres_host_filesystem_uid }}"
+    group: "{{ postgres_host_filesystem_gid }}"
 
 - name: Ensure Postgres environment variables file created
   ansible.builtin.template:

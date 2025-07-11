@@ -16,8 +16,8 @@
     src: "{{ role_path }}/templates/sql/init-managed-db-user-and-role.sql.j2"
     dest: "/tmp/{{ postgres_identifier }}-init-managed-db-user-and-role.sql"
     mode: 0600
-    owner: "{{ postgres_uid }}"
-    group: "{{ postgres_gid }}"
+    owner: "{{ postgres_host_filesystem_uid }}"
+    group: "{{ postgres_host_filesystem_gid }}"
 
 - name: Execute Postgres managed database initialization SQL file for {{ managed_db.name }}
   ansible.builtin.command:

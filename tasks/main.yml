@@ -1,5 +1,14 @@
 ---
 
+# If docker userns is activated, the files that are mounted in the container must have a different uid and gid on the Docker host.
+- name: Determine uid and gid for the directories which are mounted in the container
+  ansible.builtin.set_fact:
+    postgres_host_filesystem_uid: "{{ postgres_uid if not postgres_docker_userns_enabled else (postgres_uid | int + postgres_docker_userns_offset) | string }}"
+    postgres_host_filesystem_gid: "{{ postgres_gid if not postgres_docker_userns_enabled else (postgres_gid | int + postgres_docker_userns_offset) | string }}"
+  when: postgres_enabled | bool
+  tags:
+    - always
+
 - block:
     - when: postgres_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"

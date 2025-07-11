@@ -13,9 +13,14 @@ postgres_identifier: 'postgres'
 postgres_base_path: "/{{ postgres_identifier }}"
 postgres_data_path: "{{ postgres_base_path }}/data"
 postgres_bin_path: "{{ postgres_base_path }}/bin"
+postgres_passwd_file_path: ''
 
 postgres_uid: ''
 postgres_gid: ''
+postgres_host_filesystem_uid: ''
+postgres_host_filesystem_gid: ''
+postgres_docker_userns_enabled: false
+postgres_docker_userns_offset: 0
 
 postgres_connection_hostname: "{{ postgres_identifier }}"
 postgres_connection_port: 5432
