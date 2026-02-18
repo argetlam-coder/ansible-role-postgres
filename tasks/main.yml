@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 - 2024 Slavi Pantaleev
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 ---
 
 # If docker userns is activated, the files that are mounted in the container must have a different uid and gid on the Docker host.

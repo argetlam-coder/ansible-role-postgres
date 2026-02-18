@@ -1,3 +1,7 @@
+<!--
+SPDX-FileCopyrightText: 2026 Suguru Hirahara
+-->
+
 # Postgres Ansible role
 
 This is an [Ansible](https://www.ansible.com/) role which installs [Postgres](https://www.postgresql.org/) to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
@@ -7,6 +11,9 @@ This role *implicitly* depends on:
 - [`com.devture.ansible.role.playbook_help`](https://github.com/devture/com.devture.ansible.role.playbook_help)
 - [`com.devture.ansible.role.systemd_docker_base`](https://github.com/devture/com.devture.ansible.role.systemd_docker_base)
 
+Check [`defaults/main.yml`](defaults/main.yml) for the full list of supported options.
+
+💡 For an Ansible playbook which integrates this role and makes it easier to use, see the [Mother-of-All-Self-Hosting Ansible playbook](https://github.com/mother-of-all-self-hosting/mash-playbook).
 
 ## Features
 
@@ -20,7 +27,7 @@ This role *implicitly* depends on:
 
 - **import data from SQLite, NeDB, etc**: this is an internal task (not exposed as a playbook tag), but the role supports using [pgloader](https://pgloader.io/) to load data into Postgres
 
-- **vacuum support**: you can vacuum the database using the `--tags=run-postgres-vacuum` tag
+- **vacuum support**: you can vacuum all configured databases in one run using the `--tags=run-postgres-vacuum` tag
 
 - **helpful scripts**:
   - get a `psql` interactive terminal via the `/base_path/bin/cli` and `/base_path/bin/cli-non-interactive` scripts
@@ -74,3 +81,9 @@ postgres_managed_databases: |
     }]
   }}
 ```
+
+## Development
+
+You can optionally install [pre-commit](https://pre-commit.com/) so that simple mistakes are checked and noticed before changes are pushed to a remote branch. See [`.pre-commit-config.yaml`](./.pre-commit-config.yaml) for which hooks are to be executed.
+
+See [this section](https://pre-commit.com/#usage) on the official documentation for usage.
